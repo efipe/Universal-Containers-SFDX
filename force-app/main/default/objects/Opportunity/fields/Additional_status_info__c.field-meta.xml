@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Additional_status_info__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(  ISPICKVAL( StageName, &apos;Prospecting&apos;),  &apos;Opportunity owner: &apos; +     Owner.Username       ,
+
+IF(  ISPICKVAL( StageName, &apos;Value Proposition&apos;),  &apos;Amount: &apos; +  TEXT( Amount__c) + &apos; Dec TEU: &apos; +  TEXT(Declared_TEU__c) , 
+
+IF(  ISPICKVAL( StageName, &apos;Closed Won&apos;), &apos;Close date: &apos; + TEXT( CloseDate ),  
+
+IF(  ISPICKVAL( StageName, &apos;Closed Lost&apos;),
+
+IF( Amount__c &gt;  100000, &apos;Big Deal Lost&apos; ,
+IF( Amount__c &gt; 50000, &apos;Medium Deal Lost&apos; ,
+IF( Amount__c &lt; 50000, &apos;Small deal lost&apos;,
+ &apos; &apos;)
+)
+)
+ , &apos; &apos;  )
+)
+)
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Additional status info</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

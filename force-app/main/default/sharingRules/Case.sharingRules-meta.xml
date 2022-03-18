@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingOwnerRules>
+        <fullName>Complaint_Queue</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Complaint Queue</label>
+        <sharedTo>
+            <role>Complaint_Department</role>
+        </sharedTo>
+        <sharedFrom>
+            <queue>Complaint_Dept</queue>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Customer_Service_Queue</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Customer Service Queue</label>
+        <sharedTo>
+            <role>Customer_Support_Department</role>
+        </sharedTo>
+        <sharedFrom>
+            <queue>Customer_Service_Dept</queue>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Payment_Queue</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Payment Queue</label>
+        <sharedTo>
+            <role>Payment_Department</role>
+        </sharedTo>
+        <sharedFrom>
+            <queue>Payment_Dept</queue>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Role_to_role_CS_dept</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Role to role - CS dept</label>
+        <sharedTo>
+            <role>Customer_Support_Department</role>
+        </sharedTo>
+        <sharedFrom>
+            <role>Customer_Support_Department</role>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Role_to_role_Payment_Dept</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Role to role - Payment Dept</label>
+        <sharedTo>
+            <role>Payment_Department</role>
+        </sharedTo>
+        <sharedFrom>
+            <role>Payment_Department</role>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Role_to_role_complaint_dept</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Role to role - complaint dept</label>
+        <sharedTo>
+            <role>Complaint_Department</role>
+        </sharedTo>
+        <sharedFrom>
+            <role>Complaint_Department</role>
+        </sharedFrom>
+    </sharingOwnerRules>
+</SharingRules>

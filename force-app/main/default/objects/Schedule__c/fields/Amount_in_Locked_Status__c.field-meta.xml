@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Amount_in_Locked_Status__c</fullName>
+    <externalId>false</externalId>
+    <label>Amount in Locked Status</label>
+    <summarizedField>Schedule_booking__c.Amount__c</summarizedField>
+    <summaryFilterItems>
+        <field>Schedule_booking__c.Status__c</field>
+        <operation>equals</operation>
+        <value>Locked</value>
+    </summaryFilterItems>
+    <summaryForeignKey>Schedule_booking__c.Schedule__c</summaryForeignKey>
+    <summaryOperation>sum</summaryOperation>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

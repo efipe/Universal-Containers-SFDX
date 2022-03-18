@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Schedule booking</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Scheduled bookings</value>
+    </caseValues>
+    <layouts>
+        <layout>Schedule booking Layout</layout>
+        <sections>
+            <label></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+    <validationRules>
+        <errorMessage></errorMessage>
+        <name>Cant_Book_after_departure</name>
+    </validationRules>
+</CustomObjectTranslation>

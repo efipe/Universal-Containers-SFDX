@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AuthProvider xmlns="http://soap.sforce.com/2006/04/metadata">
+    <authorizeUrl>https://hapag-lloyd7-dev-ed.my.salesforce.com/services/oauth2/authorize</authorizeUrl>
+    <consumerKey>3MVG9t0sl2P.pByqXzBfHlsdy_txmVAlNeI0VY0NAqlV8GS1pOVGBOuwXb7aiY61jyq_IGMIf6jOP2iZtzCh1</consumerKey>
+    <consumerSecret>dh97nTcx4VWNtkKckgth5J5DbwerhaHz/1vu2MQuY8B5xmeMPrztbxuOdWPhCYuCcHBlosMP5beIsk0+/sabn3BBGPdiC2rX</consumerSecret>
+    <friendlyName>Postman_To_Filip</friendlyName>
+    <includeOrgIdInIdentifier>true</includeOrgIdInIdentifier>
+    <providerType>Salesforce</providerType>
+    <sendAccessTokenInHeader>false</sendAccessTokenInHeader>
+    <sendClientCredentialsInHeader>false</sendClientCredentialsInHeader>
+    <sendSecretInApis>true</sendSecretInApis>
+    <tokenUrl>https://hapag-lloyd7-dev-ed.my.salesforce.com/services/oauth2/token</tokenUrl>
+</AuthProvider>

@@ -1,0 +1,113 @@
+<apex:page showHeader="false" controller="CaseInquiryController"  >
+
+    <META HTTP-EQUIV="Content-type" CONTENT="text/html; charset=UTF-8"/>
+
+<style>
+input[type=text], select, textarea {
+  width: 100%; /* Full width */
+  padding: 12px; /* Some padding */ 
+  border: 1px solid #ccc; /* Gray border */
+  border-radius: 4px; /* Rounded borders */
+  box-sizing: border-box; /* Make sure that padding and width stays in place */
+  margin-top: 6px; /* Add a top margin */
+  margin-bottom: 16px; /* Bottom margin */
+  resize: vertical /* Allow the user to vertically resize the textarea (not horizontally) */
+}
+
+input[type=submit] {
+  background-color: #04AA6D;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+
+.container {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+  
+  margin: 0 auto; 
+  width:50vw;
+  top:50vw;
+}
+
+
+</style>
+
+<center>
+<apex:image url="{!$Resource.Logo}"/>
+<br>
+
+<title>Contact us!</title>
+</br>
+
+</center>
+
+
+
+<apex:outputPanel id="formInquiry" rendered="true">
+
+<div class="container" id="formInquiry">
+<form action="https://webto.salesforce.com/servlet/servlet.WebToCase?encoding=UTF-8" method="POST">
+
+<input type="hidden" name="orgid" value="00D7Q000002E37A"/>
+
+<input type="hidden" name="retURL" value="https://caseinquiry-developer-edition.eu44.force.com?success=true"/>
+
+<label for="name">Name and Surname</label><input  id="name" maxlength="80" name="name" size="20" type="text" placeholder="Name Surname" />
+
+<label for="email">Email*</label><input  id="email" maxlength="80" name="email" size="20" type="text" required="true" placeholder="example@example.ex"/>
+
+<label for="subject">Subject*</label><input  id="subject" maxlength="80" name="subject" size="20" type="text" required="true" placeholder="Describe your request" />
+
+<label for="description" >Description</label><textarea name="description" placeholder="Describe your issue in details here"></textarea>
+
+Booking number: <input  id="00N7Q000007MMTE" maxlength="45" name="00N7Q000007MMTE" size="20" type="text" placeholder="Your order number in format of 'PO# XXXXXXXX'"/>
+
+Preferred language:<select  id="00N7Q000007LbLx" name="00N7Q000007LbLx" title="Preferred language">
+<option value="English">English</option>
+<option value="German">German</option>
+<option value="Chinese">Chinese</option>
+<option value="French">French</option>
+<option value="Italian">Italian</option>
+<option value="Portuguese">Portuguese</option>
+</select>
+
+<label for="recordType">Type of request*</label><select  id="recordType" name="recordType">
+<option value="0127Q0000005WdW">Invoice correction</option>
+<option value="0127Q0000005WdR">Invoice request</option>
+<option value="0127Q0000005Wdb">Support question</option>
+<option value="0127Q0000005Wdl">Support - Other</option>
+<option value="0127Q0000005Wdg">Change request</option>
+<option value="0127Q0000005We5">Complaint - Delivery</option>
+<option value="0127Q0000005Wfc">Complaint - Missing or damaged goods</option>
+<option value="0127Q0000005Wfh">Complaint - other</option>
+</select>
+<input type="submit" name="submit"/>
+</form>
+</div>
+</apex:outputPanel>
+
+<div id="thanksMessages">
+    <center>
+  <h1>Thank you for submitting your case! We'll do our best to get back to you within 24 hours</h1>
+    </center>
+</div>
+
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  if(params.get("success")) {
+    document.getElementById('formInquiry').style.display = 'none';
+  } else {
+    document.getElementById('thanksMessages').style.display = 'none';
+  }
+</script>
+</apex:page>

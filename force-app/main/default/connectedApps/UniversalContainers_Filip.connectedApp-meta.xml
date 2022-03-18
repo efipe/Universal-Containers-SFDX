@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ConnectedApp xmlns="http://soap.sforce.com/2006/04/metadata">
+    <contactEmail>pernia94@gmail.com</contactEmail>
+    <iconUrl>https://login.salesforce.com/logos/Salesforce/SalesforcePlatform/icon.png</iconUrl>
+    <label>UniversalContainers_Filip</label>
+    <logoUrl>https://login.salesforce.com/logos/Salesforce/SalesforcePlatform/logo.png</logoUrl>
+    <oauthConfig>
+        <callbackUrl>https://hapag-lloyd4-dev-ed.my.salesforce.com/services/authcallback/Denys_ORG</callbackUrl>
+        <consumerKey>3MVG9t0sl2P.pByqXzBfHlsdy_txmVAlNeI0VY0NAqlV8GS1pOVGBOuwXb7aiY61jyq_IGMIf6jOP2iZtzCh1</consumerKey>
+        <isAdminApproved>false</isAdminApproved>
+        <isConsumerSecretOptional>false</isConsumerSecretOptional>
+        <isIntrospectAllTokens>false</isIntrospectAllTokens>
+        <isSecretRequiredForRefreshToken>true</isSecretRequiredForRefreshToken>
+        <scopes>Api</scopes>
+        <scopes>Full</scopes>
+        <scopes>RefreshToken</scopes>
+    </oauthConfig>
+    <oauthPolicy>
+        <ipRelaxation>ENFORCE</ipRelaxation>
+        <refreshTokenPolicy>infinite</refreshTokenPolicy>
+    </oauthPolicy>
+</ConnectedApp>

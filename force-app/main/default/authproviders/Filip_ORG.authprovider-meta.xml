@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AuthProvider xmlns="http://soap.sforce.com/2006/04/metadata">
+    <authorizeUrl>https://universalcontainer-1c-dev-ed.my.salesforce.com/services/oauth2/authorize</authorizeUrl>
+    <consumerKey>3MVG9t0sl2P.pBypvuij4f4qyd52UZr0scM1StLL09SAfudh_a4xqwkDRCVrTJ64igHwnmtBjawrlIUzzgvaL</consumerKey>
+    <consumerSecret>z/2g7jeLT0EOXpmRQ68W5HW9YX/6M/DAHsXZo1S9mx6v2yo0A90raTHUcCU89jLUrMDGdq1dnzXZmySWp2oFc3BBGPdiC2rX</consumerSecret>
+    <defaultScopes>api refresh_token</defaultScopes>
+    <executionUser>poterala.f@hlag.com</executionUser>
+    <friendlyName>Filip ORG</friendlyName>
+    <includeOrgIdInIdentifier>true</includeOrgIdInIdentifier>
+    <providerType>Salesforce</providerType>
+    <registrationHandler>AutocreatedRegHandler1647343317516</registrationHandler>
+    <sendAccessTokenInHeader>false</sendAccessTokenInHeader>
+    <sendClientCredentialsInHeader>false</sendClientCredentialsInHeader>
+    <sendSecretInApis>true</sendSecretInApis>
+    <tokenUrl>https://universalcontainer-1c-dev-ed.my.salesforce.com/services/oauth2/token</tokenUrl>
+</AuthProvider>

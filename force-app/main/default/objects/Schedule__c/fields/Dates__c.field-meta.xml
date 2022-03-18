@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Dates__c</fullName>
+    <externalId>false</externalId>
+    <formula>&quot;DEP: &quot; &amp; &quot; Y &quot; &amp; TEXT(YEAR(Departure_date__c) ) &amp; &quot; Q &quot; &amp;  TEXT( CEILING( MONTH ( Departure_date__c ) / 3))  &amp; &quot; W &quot;
+ &amp; TEXT(IF( 
+  CEILING( ( Departure_date__c - DATE( YEAR( Departure_date__c ), 1, 1) + 1) / 7) &gt; 52,
+  52,
+  CEILING( ( Departure_date__c - DATE( YEAR( Departure_date__c ), 1, 1) + 1) / 7)
+))
+&amp; &quot;  &quot; &amp;
+
+&quot;ARV: &quot; &amp; &quot; Y &quot; &amp; TEXT(YEAR(Arrival_date__c) ) &amp; &quot; Q &quot; &amp;  TEXT( CEILING( MONTH ( Arrival_date__c ) / 3))  &amp; &quot; W &quot;
+ &amp; TEXT(IF( 
+  CEILING( ( Arrival_date__c - DATE( YEAR( Arrival_date__c ), 1, 1) + 1) / 7) &gt; 52,
+  52,
+  CEILING( ( Arrival_date__c - DATE( YEAR( Arrival_date__c ), 1, 1) + 1) / 7)
+))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Dates</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

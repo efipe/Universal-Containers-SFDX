@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Schedule_Status__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( AND(Departure_date__c  &lt;  TODAY(),  Arrival_date__c &gt; TODAY()), &apos;In transit&apos;,  IF( Departure_date__c &gt; TODAY(), &apos;Before Transit&apos; ,  IF(  Arrival_date__c &lt; TODAY(), &apos;Docked&apos;, &apos;After departure&apos;) ) )</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Schedule Status</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Arrival_date_change_ban</fullName>
+    <active>true</active>
+    <errorConditionFormula>PRIORVALUE(Arrival_date__c) &lt; TODAY()</errorConditionFormula>
+    <errorMessage>You cannot change arrival date when its after this date!</errorMessage>
+</ValidationRule>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Container_type__c</fullName>
+    <externalId>false</externalId>
+    <label>Container type</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Refrigerator Container</fullName>
+                <default>false</default>
+                <label>Refrigerator Container</label>
+            </value>
+            <value>
+                <fullName>Dry Storage Container</fullName>
+                <default>false</default>
+                <label>Dry Storage Container</label>
+            </value>
+            <value>
+                <fullName>Special Purpose Container</fullName>
+                <default>false</default>
+                <label>Special Purpose Container</label>
+            </value>
+            <value>
+                <fullName>General Type Container</fullName>
+                <default>false</default>
+                <label>General Type Container</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>
