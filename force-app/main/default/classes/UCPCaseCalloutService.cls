@@ -1,5 +1,6 @@
 public with sharing class UCPCaseCalloutService {
-    // TODO Add private helper methods to create / build valid parameters for each method
+
+    static final String PAULINAS_ORG_ENDPOINT = 'callout:Paulinas_Org/services/apexrest/cases/';
 
     static Map<Id,String> IdToExternalRecordTypeMap = new Map<Id, String>{
         CaseUtilities.getRecordTypeIdByDevName(CaseUtilities.RT_INVOICE_REQUEST) => 'Invoice_Request',
@@ -13,27 +14,46 @@ public with sharing class UCPCaseCalloutService {
     };
 
     public static void sendUpsertCallout(List<Case> casesData){
-        // TODO Write HTTP request to be sent to paulina's org using Post method and CaseRESTEndpoint from Paulina's Org
         List<CaseWrapper> wrappedCasesToSend = new List<CaseWrapper>();
         HttpRequest request = new HttpRequest();
         Http http = new Http();
-        request.setEndpoint('callout:Paulinas_Org/services/apexrest/Cases');
+        request.setEndpoint(PAULINAS_ORG_ENDPOINT);
         request.setMethod('POST');
         request.setHeader('Content-Type', 'application/json;charset=UTF-8');
-        for(Case processedCase: casesData){
-            CaseWrapper caseWrapper = new CaseWrapper(processedCase);
-            wrappedCasesToSend.add(caseWrapper);
-            caseWrapper.record_type = IdToExternalRecordTypeMap.get(processedCase.RecordType.DeveloperName);
-        }
-        String JsonSerialized = JSON.serialize(wrappedCasesToSend);
-        request.setBody(JsonSerialized);
-        System.debug(request.getBody());
+        request.setBody(wrapCasesAndBuildJson(casesData));
         HTTPResponse response = http.send(request);
         System.debug(response.getBody());
     }
 
-    public static void sendDeleteCallout(List<Case> caseIdsFromParameter){
-        // TODO Write HTTP request to be sent to paulina's org using delete method and CaseRESTEndpoint from Paulina's Org
+    public static void sendDeleteCallout(List<Case> casesReceivedToDelete){
+        HttpRequest request = new HttpRequest();
+        Http http = new Http();
+        request.setMethod('DELETE');
+        request.setHeader('Content-Type', 'application/x-www-form-urlencoded');
+        request.setEndpoint(PAULINAS_ORG_ENDPOINT + buildEndpointParameterForDelete(casesReceivedToDelete));
+        HttpResponse response = http.send(request);
     }
 
+    public static String wrapCasesAndBuildJson (List<Case> casesData){
+        List<CaseWrapper> wrappedCasesToSend = new List<CaseWrapper>();
+        for(Case processedCase: casesData){
+            CaseWrapper caseWrapper = new CaseWrapper(processedCase);
+            caseWrapper.record_type = IdToExternalRecordTypeMap.get(processedCase.RecordType.Id);
+            wrappedCasesToSend.add(caseWrapper);
+        }
+        String jsonSerialized = JSON.serialize(wrappedCasesToSend);
+        return jsonSerialized;
+    }
+
+    public static String buildEndpointParameterForDelete (List<Case> casesReceivedToDelete){
+        List<String> externalIdList = new List<String>();
+        for (Case processedCase : casesReceivedToDelete ){
+            externalIdList.add(processedCase.External_Id__c);
+        }
+        String parameterBuilt = CaseParameterBuilder.constructParameterForEndpoint(externalIdList);
+        if (parameterBuilt.length() != 0) {
+            return parameterBuilt;
+        } 
+        return null;
+    }
 }
