@@ -16,6 +16,7 @@ public with sharing class CaseWrapper {
         this.suppliedEmail=caseRecord.SuppliedEmail;
         this.suppliedPhone=caseRecord.SuppliedPhone;
         this.suppliedName=caseRecord.SuppliedName;
+        this.last_change_source_org=caseRecord.Last_Change_Org_Id__c;
     }
 
     public String external_id {get; set;}
@@ -29,4 +30,5 @@ public with sharing class CaseWrapper {
     public String suppliedEmail {get; set;}
     public String suppliedPhone {get; set;}
     public String suppliedName {get; set;}
+    public String last_change_source_org {get; set;}
 }
