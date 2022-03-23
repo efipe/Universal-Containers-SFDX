@@ -1,17 +1,6 @@
-trigger CaseTrigger on Case (before insert, before update, after insert, after update) {
+trigger CaseTrigger on Case (before insert, before update, after insert, after update, after delete ) {
 
-    CaseTriggerHelper caseTriggerHelper = new CaseTriggerHelper();
-    if (Trigger.isInsert && Trigger.isBefore) {
-        caseTriggerHelper.setDateTimeOfLastStatusChange(Trigger.new);
-        caseTriggerHelper.assignRelatedBooking(Trigger.new);
-        caseTriggerHelper.setLastChangeOrgUponInsert(Trigger.new);
-    }
+    CaseTriggerHandler handler = new CaseTriggerHandler();
+    handler.run();
 
-    if (Trigger.isUpdate && Trigger.isBefore) {
-        caseTriggerHelper.getDefaultQueue(Trigger.new, Trigger.old);
-        caseTriggerHelper.getQueueForCase(Trigger.new, Trigger.old);
-        caseTriggerHelper.incrementTimesOpenedField(Trigger.new, Trigger.old);
-        caseTriggerHelper.setDateTimeOfLastStatusChange(Trigger.new, Trigger.old);
-        caseTriggerHelper.calculatePreviousCloseTimes(Trigger.new, Trigger.old);
-    }
 }

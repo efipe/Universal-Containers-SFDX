@@ -13,6 +13,20 @@ public with sharing class UCPCaseCalloutService {
             CaseUtilities.getRecordTypeIdByDevName(CaseUtilities.RT_COMPLAINT_OTHER) => 'Other'
     };
 
+    @Future(callout=true)
+    public static void sendDeleteCallout(Set<String> casesExternalIds) {
+        List<Case> casesList = new List<Case>();
+        for (String externalId : casesExternalIds) {
+            casesList.add(new Case(External_Id__c = externalId));
+        }
+        sendDeleteCallout(casesList);
+    }
+
+    @Future(callout=true)
+    public static void sendUpsertCallout(Set<String> casesExternalids){
+
+    }
+
     public static void sendUpsertCallout(List<Case> casesData) {
         List<CaseWrapper> wrappedCasesToSend = new List<CaseWrapper>();
         HttpRequest request = new HttpRequest();
@@ -32,7 +46,7 @@ public with sharing class UCPCaseCalloutService {
         request.setHeader('Content-Type', 'application/x-www-form-urlencoded');
         request.setEndpoint(PAULINAS_ORG_ENDPOINT + buildEndpointParameterForDelete(casesReceivedToDelete));
         HttpResponse response = http.send(request);
-        System.debug(response.getBody());
+        System.debug(response.getStatus());
     }
 
     public static String wrapCasesAndBuildJson(List<Case> casesData) {
