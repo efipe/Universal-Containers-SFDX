@@ -23,9 +23,16 @@ public with sharing class UCPCaseCalloutService {
     }
 
     @Future(callout=true)
-    public static void sendUpsertCallout(Set<String> casesExternalids){
-
+    public static void sendUpsertCallout(Set<String> casesExternalIds) {
+        System.debug(' is Rest Context ' + RestUtilities.isRestApiContext());
+        List<Case> casesListToUpdate =  new List<Case> ([
+                SELECT External_Id__c, Preferred_language__c, RecordType.DeveloperName, Priority, Origin, Subject, Description, Comments, SuppliedEmail, SuppliedPhone, SuppliedName, Last_Change_Org_Id__c
+                FROM Case
+                WHERE External_Id__c IN :casesExternalIds
+        ]);
+        sendUpsertCallout(casesListToUpdate);
     }
+
 
     public static void sendUpsertCallout(List<Case> casesData) {
         List<CaseWrapper> wrappedCasesToSend = new List<CaseWrapper>();
@@ -35,8 +42,8 @@ public with sharing class UCPCaseCalloutService {
         request.setMethod('POST');
         request.setHeader('Content-Type', 'application/json;charset=UTF-8');
         request.setBody(wrapCasesAndBuildJson(casesData));
-        HTTPResponse response = http.send(request);
-        System.debug(response.getBody());
+        System.debug(request.getBody());
+        HttpResponse response = http.send(request);
     }
 
     public static void sendDeleteCallout(List<Case> casesReceivedToDelete) {
@@ -46,7 +53,6 @@ public with sharing class UCPCaseCalloutService {
         request.setHeader('Content-Type', 'application/x-www-form-urlencoded');
         request.setEndpoint(PAULINAS_ORG_ENDPOINT + buildEndpointParameterForDelete(casesReceivedToDelete));
         HttpResponse response = http.send(request);
-        System.debug(response.getStatus());
     }
 
     public static String wrapCasesAndBuildJson(List<Case> casesData) {
