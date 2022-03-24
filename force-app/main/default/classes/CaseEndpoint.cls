@@ -15,7 +15,6 @@ global with sharing class CaseEndpoint {
         System.debug(requestBody);
         List<CaseWrapper> casesToUpdate = (List<CaseWrapper>) JSON.deserialize(requestBody, List<CaseWrapper>.class);
         List<Case> casesToUpdateFormatted = new List<Case>();
-        System.debug('Size of list => ' + casesToUpdate.size());
         for (CaseWrapper receivedCase : casesToUpdate) {
             Case newCase = new Case();
             newCase.Preferred_Language__c = receivedCase.Preferred_Language;

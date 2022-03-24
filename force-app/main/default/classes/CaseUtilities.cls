@@ -9,7 +9,7 @@ public with sharing class CaseUtilities {
     public static final String RT_COMPLAINT_DELIVERY = 'Complaint_Delivery';
     public static final String RT_COMPLAINT_MISSING_GOODS = 'Complaint_Missing_or_damaged_goods';
     public static final String RT_SUPPORT_QUESTION = 'Support_question';
-    public static final String RT_SUPPORT_OTHER = 'Support_Other';
+    public static final String RT_SUPPORT_OTHER = 'Support_other';
     public static final String RT_COMPLAINT_OTHER = 'Complaint_other';
 
     private static Map<String, Id> recordTypeByDevName;
