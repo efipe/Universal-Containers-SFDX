@@ -1,6 +1,7 @@
 public with sharing class UCPCaseCalloutService {
 
     static final String PAULINAS_ORG_ENDPOINT = 'callout:Paulinas_Org/services/apexrest/cases/';
+    static final String URL_PARAM_EXT_ID = 'external_id';
 
     static Map<Id, String> IdToExternalRecordTypeMap = new Map<Id, String>{
             CaseUtilities.getRecordTypeIdByDevName(CaseUtilities.RT_INVOICE_REQUEST) => 'Invoice_Request',
@@ -13,7 +14,6 @@ public with sharing class UCPCaseCalloutService {
             CaseUtilities.getRecordTypeIdByDevName(CaseUtilities.RT_COMPLAINT_OTHER) => 'Other'
     };
 
-    @Future(callout=true)
     public static void sendDeleteCallout(Set<String> casesExternalIds) {
         List<Case> casesList = new List<Case>();
         for (String externalId : casesExternalIds) {
@@ -22,7 +22,6 @@ public with sharing class UCPCaseCalloutService {
         sendDeleteCallout(casesList);
     }
 
-    @Future(callout=true)
     public static void sendUpsertCallout(Set<String> casesExternalIds) {
         System.debug(' is Rest Context ' + RestUtilities.isRestApiContext());
         List<Case> casesListToUpdate =  new List<Case> ([
@@ -52,7 +51,9 @@ public with sharing class UCPCaseCalloutService {
         request.setMethod('DELETE');
         request.setHeader('Content-Type', 'application/x-www-form-urlencoded');
         request.setEndpoint(PAULINAS_ORG_ENDPOINT + buildEndpointParameterForDelete(casesReceivedToDelete));
+        System.debug(request.getEndpoint());
         HttpResponse response = http.send(request);
+
     }
 
     public static String wrapCasesAndBuildJson(List<Case> casesData) {
@@ -75,7 +76,7 @@ public with sharing class UCPCaseCalloutService {
         for (Case processedCase : casesReceivedToDelete) {
             externalIdList.add(processedCase.External_Id__c);
         }
-        String parameterBuilt = new RestUtilities.UrlParameterBuilder().addParam(PAULINAS_ORG_ENDPOINT, String.join(externalIdList, ',')).build();
+        String parameterBuilt = new RestUtilities.UrlParameterBuilder().addParam(URL_PARAM_EXT_ID, String.join(externalIdList, ',')).build();
         return parameterBuilt;
     }
 }

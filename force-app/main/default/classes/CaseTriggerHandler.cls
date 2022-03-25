@@ -31,7 +31,6 @@ public with sharing class CaseTriggerHandler {
                     afterInsert(newCase);
                 }
             } else if (Trigger.isUpdate) {
-                System.debug('Trigger new size ' + Trigger.new.size());
                 for (Case newCase : (List<Case>) Trigger.new) {
                     afterUpdate(newCase, (Case) Trigger.oldMap.get(newCase.Id));
                 }
@@ -77,11 +76,7 @@ public with sharing class CaseTriggerHandler {
     }
 
     public void afterInsert(Case newCase) {
-        System.debug('After insert triggered');
-
         if (newCase.External_Id__c != null) {
-            System.debug('External id: ' + newCase.External_Id__c);
-            System.debug('newCase.Last_Change_Org_Id__c ' + newCase.Last_Change_Org_Id__c);
             if (newCase.Last_Change_Org_Id__c != DESTINATION_ORG_NAME){
                 caseExternalIdsToUpsert.add(newCase.External_Id__c);
             }
@@ -89,23 +84,9 @@ public with sharing class CaseTriggerHandler {
     }
 
     public void afterUpdate(Case newCase, Case oldCase) {
-        System.debug('After update method entry');
         if (newCase.External_Id__c != null) {
-            System.debug('External id: ' + newCase.External_Id__c);
-            System.debug('newCase.Last_Change_Org_Id__c ' + newCase.Last_Change_Org_Id__c);
             if (newCase.Last_Change_Org_Id__c != DESTINATION_ORG_NAME && helper.isIntegrationSensitiveDataChanged(newCase, oldCase)) {
                 caseExternalIdsToUpsert.add(newCase.External_Id__c);
-                System.debug('sensitive data changed: ');
-                System.debug(newCase.Preferred_language__c + ' : ' + oldCase.Preferred_language__c);
-                System.debug(newCase.RecordTypeId + ' : ' + oldCase.RecordTypeId);
-                System.debug(newCase.Priority + ' : ' + oldCase.Priority);
-                System.debug(newCase.Origin + ' : ' + oldCase.Origin);
-                System.debug(newCase.Subject + ' : ' + oldCase.Subject);
-                System.debug(newCase.Description + ' : ' + oldCase.Description);
-                System.debug(newCase.Comments + ' : ' + oldCase.Comments);
-                System.debug(newCase.SuppliedPhone + ' : ' + oldCase.SuppliedPhone);
-                System.debug(newCase.SuppliedEmail + ' : ' + oldCase.SuppliedEmail);
-                System.debug(newCase.SuppliedName + ' : ' + oldCase.SuppliedName);
             }
         }
     }
@@ -122,12 +103,14 @@ public with sharing class CaseTriggerHandler {
         if (Trigger.isDelete) {
             if (!caseExternalIdsToDelete.isEmpty() && isDeleteRequestSent == false) {
                 isDeleteRequestSent = true;
-                UCPCaseCalloutService.sendDeleteCallout(caseExternalIdsToDelete);
+                ID deleteJob = System.enqueueJob(new UCPCaseDeleteCalloutQueueable(caseExternalIdsToDelete));
+                //  UCPCaseCalloutService.sendDeleteCallout(caseExternalIdsToDelete);
             }
         } else {
             if (!caseExternalIdsToUpsert.isEmpty() && isUpsertRequestSent == false) {
                 isUpsertRequestSent = true;
-                UCPCaseCalloutService.sendUpsertCallout(caseExternalIdsToUpsert);
+                ID upsertJob = System.enqueueJob(new UCPCaseUpsertCalloutQueueable(caseExternalIdsToUpsert));
+               // UCPCaseCalloutService.sendUpsertCallout(caseExternalIdsToUpsert);
             }
         }
     }
