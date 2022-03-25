@@ -23,7 +23,6 @@ public with sharing class UCPCaseCalloutService {
     }
 
     public static void sendUpsertCallout(Set<String> casesExternalIds) {
-        System.debug(' is Rest Context ' + RestUtilities.isRestApiContext());
         List<Case> casesListToUpdate =  new List<Case> ([
                 SELECT External_Id__c, Preferred_language__c, RecordType.DeveloperName, Priority, Origin, Subject, Description, Comments, SuppliedEmail, SuppliedPhone, SuppliedName, Last_Change_Org_Id__c
                 FROM Case
@@ -31,7 +30,6 @@ public with sharing class UCPCaseCalloutService {
         ]);
         sendUpsertCallout(casesListToUpdate);
     }
-
 
     public static void sendUpsertCallout(List<Case> casesData) {
         List<CaseWrapper> wrappedCasesToSend = new List<CaseWrapper>();

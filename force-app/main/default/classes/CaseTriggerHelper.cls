@@ -1,6 +1,8 @@
 public with sharing class CaseTriggerHelper {
 
+    @TestVisible
     private static final String MY_LAST_CHANGE_ORG_NAME = 'FILIP';
+
     public List<Schedule_booking__c> bookingsRelated;
     public Map<String, Id> bookingsNamesAndIds = new Map<String, Id>();
 
