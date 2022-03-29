@@ -47,7 +47,9 @@ public with sharing class CaseTriggerHandler {
         // TODO if when case.Booking_number__r == null && booking_number_from_webform != null
         List<String> bookingNumbers = new List<String>();
         for (Case newCase : (List<Case>) Trigger.new) {
-            bookingNumbers.add(newCase.Booking_number_from_webform__c);
+            if (String.isNotBlank(newCase.Booking_number_from_webform__c) && newCase.Related_booking__r == null) {
+                bookingNumbers.add(newCase.Booking_number_from_webform__c);
+            }
         }
         helper.bookingsRelated = new List<Schedule_booking__c>([SELECT Booking_name__c, Id FROM Schedule_booking__c WHERE Booking_name__c IN :bookingNumbers]);
         for (Schedule_booking__c booking : helper.bookingsRelated) {
@@ -55,9 +57,6 @@ public with sharing class CaseTriggerHandler {
         }
     }
 
-    public void bulkAfter() {
-
-    }
 
     public void beforeInsert(Case newCase) {
         helper.setDateTimeOfLastStatusChange(newCase);
@@ -77,7 +76,7 @@ public with sharing class CaseTriggerHandler {
 
     public void afterInsert(Case newCase) {
         if (newCase.External_Id__c != null) {
-            if (newCase.Last_Change_Org_Id__c != DESTINATION_ORG_NAME){
+            if (newCase.Last_Change_Org_Id__c != DESTINATION_ORG_NAME) {
                 caseExternalIdsToUpsert.add(newCase.External_Id__c);
             }
         }
@@ -110,7 +109,7 @@ public with sharing class CaseTriggerHandler {
             if (!caseExternalIdsToUpsert.isEmpty() && isUpsertRequestSent == false) {
                 isUpsertRequestSent = true;
                 ID upsertJob = System.enqueueJob(new UCPCaseUpsertCalloutQueueable(caseExternalIdsToUpsert));
-               // UCPCaseCalloutService.sendUpsertCallout(caseExternalIdsToUpsert);
+                // UCPCaseCalloutService.sendUpsertCallout(caseExternalIdsToUpsert);
             }
         }
     }

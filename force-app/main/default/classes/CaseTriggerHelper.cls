@@ -5,6 +5,13 @@ public with sharing class CaseTriggerHelper {
 
     public List<Schedule_booking__c> bookingsRelated;
     public Map<String, Id> bookingsNamesAndIds = new Map<String, Id>();
+    @TestVisible static final String GROUP_TYPE = 'Queue';
+    @TestVisible static final String QUEUE_DEVELOPER_NAME_MAIN_QUEUE = 'Payment_Dept';
+    @TestVisible static final String QUEUE_DEVELOPER_NAME_ENGLISH = 'English_Payment';
+    @TestVisible static final String QUEUE_DEVELOPER_NAME_GERMAN = 'German_Payment';
+    @TestVisible private static final String SOURCE_ORG_NAME_DENYS = 'DENYS';
+    @TestVisible static final String statusIndicatingClosed = 'Closed';
+    @TestVisible static final String statusIndicatingNew = 'New';
 
     public void getQueueForCase(Case newCase) {
         if (newCase.OwnerId.getSobjectType() != User.getSObjectType()) {
@@ -49,7 +56,6 @@ public with sharing class CaseTriggerHelper {
     }
 
     public void calculatePreviousCloseTimes(Case newCase, Case oldCase) {
-        String statusIndicatingClosed = 'Closed';
         if (oldCase.Status == statusIndicatingClosed && newCase.Status != statusIndicatingClosed) {
             newCase.previous_closed_total_time__c = newCase.previous_closed_total_time__c += oldCase.Recent_close_time__c;
         }

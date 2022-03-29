@@ -10,12 +10,9 @@ global with sharing class CaseEndpoint {
 
     @HttpPost
     global static void upsertCases() {
-        System.debug('Test receiving');
         String requestBody = RestContext.request.requestBody.toString();
-        System.debug(requestBody);
         List<CaseWrapper> casesToUpdate = (List<CaseWrapper>) JSON.deserialize(requestBody, List<CaseWrapper>.class);
         List<Case> casesToUpdateFormatted = new List<Case>();
-        System.debug('Size of list => ' + casesToUpdate.size());
         for (CaseWrapper receivedCase : casesToUpdate) {
             Case newCase = new Case();
             newCase.Preferred_Language__c = receivedCase.Preferred_Language;
@@ -37,13 +34,16 @@ global with sharing class CaseEndpoint {
     @HttpDelete
     global static void deleteCases() {
         String requestParam = RestContext.request.params.get(PARAM_EXTERNAL_ID);
-        List<String> parameterValues = requestParam.split(',');
-        List<Case> caseToDeleteByExtId = [SELECT Id FROM Case WHERE External_Id__c In :parameterValues];
-        if ( String.isEmpty(requestParam) ) {
+        if (String.isBlank(requestParam)) {
             RestContext.response.responseBody = Blob.valueOf(EXCEPTION_MESSAGE_WRONG_PARAMETER_PROVIDED);
             RestContext.response.statusCode = 400;
             return ;
-        } else if (caseToDeleteByExtId.isEmpty()) {
+        }
+
+        List<String> parameterValues = requestParam.split(',');
+        List<Case> caseToDeleteByExtId = [SELECT Id FROM Case WHERE External_Id__c In :parameterValues];
+
+        if (caseToDeleteByExtId.isEmpty()) {
             RestContext.response.responseBody = Blob.valueOf(EXCEPTION_MESSAGE_CASE_NOT_FOUND);
             RestContext.response.statusCode = 400;
         } else {
