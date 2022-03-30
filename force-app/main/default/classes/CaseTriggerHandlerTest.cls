@@ -196,7 +196,6 @@ public with sharing class CaseTriggerHandlerTest {
 
         Case caseAfterInsert = [SELECT Id, Last_Change_Org_Id__c, Times_reopened__c FROM Case WHERE Id = :newCase.Id LIMIT 1];
         System.assertEquals(1, caseAfterInsert.Times_reopened__c);
-
     }
 
     @IsTest private static void shouldNotUpdateSourceOrgWhenSensitiveDataIsUnchanged() {

@@ -19,7 +19,7 @@ public with sharing class UCPCaseCalloutServiceTest {
     @IsTest
     static void testSendUpsert() {
         Set<String> extIds = new Set<String>();
-        for (Case c : [SELECT Id, External_Id__c FROM Case]){
+        for (Case c : [SELECT Id, External_Id__c FROM Case]) {
             extIds.add(c.External_Id__c);
         }
         HTTPMockFactory responseOK = new HTTPMockFactory();
@@ -38,7 +38,7 @@ public with sharing class UCPCaseCalloutServiceTest {
     @IsTest
     static void testSendDelete() {
         Set<String> extIds = new Set<String>();
-        for (Case c : [SELECT Id, External_Id__c FROM Case]){
+        for (Case c : [SELECT Id, External_Id__c FROM Case]) {
             extIds.add(c.External_Id__c);
         }
         HTTPMockFactory responseOK = new HTTPMockFactory();
@@ -66,18 +66,12 @@ public with sharing class UCPCaseCalloutServiceTest {
         String result = UCPCaseCalloutService.wrapCasesAndBuildJson(cases);
         Test.stopTest();
         List<CaseWrapper> resultWrappedCases = (List<CaseWrapper>) JSON.deserialize(result, List<CaseWrapper>.class);
-        System.assertEquals(cases.size(),resultWrappedCases.size());
+        System.assertEquals(cases.size(), resultWrappedCases.size());
     }
 
     @IsTest
     static void shouldBuildParameterForDelete() {
-        Case firstCase = new Case();
-        Case secondCase = new Case();
-        firstCase.External_Id__c = '1';
-        secondCase.External_Id__c = '2';
-        List<Case> casesToBuildParameterFrom = new List<Case>();
-        casesToBuildParameterFrom.add(firstCase);
-        casesToBuildParameterFrom.add(secondCase);
+        List<Case> casesToBuildParameterFrom = [SELECT Id, Subject, External_Id__c, Preferred_language__c, RecordType.DeveloperName, Status, Priority, Origin, Description, Comments, SuppliedName, SuppliedPhone, SuppliedEmail, Last_Change_Org_Id__c FROM Case LIMIT 2];
         String desiredResult = '?external_id=1,2';
 
         Test.startTest();
