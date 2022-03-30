@@ -18,13 +18,39 @@ public with sharing class UCPCaseCalloutServiceTest {
 
     @IsTest
     static void testSendUpsert() {
+        Set<String> extIds = new Set<String>();
+        for (Case c : [SELECT Id, External_Id__c FROM Case]){
+            extIds.add(c.External_Id__c);
+        }
+        HTTPMockFactory responseOK = new HTTPMockFactory();
+        HttpResponse expectedResponse = responseOK.respond(new HttpRequest());
+        Test.setMock(HttpCalloutMock.class, responseOK);
 
+        Test.startTest();
+        HttpResponse response = UCPCaseCalloutService.sendUpsertCallout(extIds);
+        Test.stopTest();
+
+        System.assertEquals(expectedResponse.getStatus(), response.getStatus());
+        System.assertEquals(expectedResponse.getStatusCode(), response.getStatusCode());
     }
 
 
     @IsTest
     static void testSendDelete() {
+        Set<String> extIds = new Set<String>();
+        for (Case c : [SELECT Id, External_Id__c FROM Case]){
+            extIds.add(c.External_Id__c);
+        }
+        HTTPMockFactory responseOK = new HTTPMockFactory();
+        HttpResponse expectedResponse = responseOK.respond(new HttpRequest());
+        Test.setMock(HttpCalloutMock.class, responseOK);
 
+        Test.startTest();
+        HttpResponse response = UCPCaseCalloutService.sendDeleteCallout(extIds);
+        Test.stopTest();
+
+        System.assertEquals(expectedResponse.getStatus(), response.getStatus());
+        System.assertEquals(expectedResponse.getStatusCode(), response.getStatusCode());
     }
 
     @IsTest
@@ -40,7 +66,6 @@ public with sharing class UCPCaseCalloutServiceTest {
         String result = UCPCaseCalloutService.wrapCasesAndBuildJson(cases);
         Test.stopTest();
         List<CaseWrapper> resultWrappedCases = (List<CaseWrapper>) JSON.deserialize(result, List<CaseWrapper>.class);
-
         System.assertEquals(cases.size(),resultWrappedCases.size());
     }
 

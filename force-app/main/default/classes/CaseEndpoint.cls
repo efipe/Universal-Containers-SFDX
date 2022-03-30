@@ -33,21 +33,24 @@ global with sharing class CaseEndpoint {
 
     @HttpDelete
     global static void deleteCases() {
-        String requestParam = RestContext.request.params.get(PARAM_EXTERNAL_ID);
-        if (String.isBlank(requestParam)) {
-            RestContext.response.responseBody = Blob.valueOf(EXCEPTION_MESSAGE_WRONG_PARAMETER_PROVIDED);
-            RestContext.response.statusCode = 400;
-            return ;
-        }
-
-        List<String> parameterValues = requestParam.split(',');
-        List<Case> caseToDeleteByExtId = [SELECT Id FROM Case WHERE External_Id__c In :parameterValues];
-
-        if (caseToDeleteByExtId.isEmpty()) {
-            RestContext.response.responseBody = Blob.valueOf(EXCEPTION_MESSAGE_CASE_NOT_FOUND);
-            RestContext.response.statusCode = 400;
-        } else {
-            delete caseToDeleteByExtId;
+        try {
+            String requestParam = RestContext.request.params.get(PARAM_EXTERNAL_ID);
+            if (String.isBlank(requestParam)) {
+                RestContext.response.responseBody = Blob.valueOf(EXCEPTION_MESSAGE_WRONG_PARAMETER_PROVIDED);
+                RestContext.response.statusCode = 400;
+                return ;
+            }
+            List<String> parameterValues = requestParam.split(',');
+            List<Case> caseToDeleteByExtId = [SELECT Id FROM Case WHERE External_Id__c In :parameterValues];
+            if (caseToDeleteByExtId.isEmpty()) {
+                RestContext.response.responseBody = Blob.valueOf(EXCEPTION_MESSAGE_CASE_NOT_FOUND);
+                RestContext.response.statusCode = 400;
+            } else {
+                delete caseToDeleteByExtId;
+            }
+        } catch (NullPointerException npe) {
+            System.debug('Null pointer exception: ' + npe);
         }
     }
+
 }
