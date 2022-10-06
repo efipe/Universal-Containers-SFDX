@@ -3,9 +3,15 @@
   <component name="FacetManager">
     <facet type="IlluminatedCloud" name="Illuminated Cloud">
       <configuration>
-        <option name="connectionName" value="Filip Admin" />
-        <option name="connectionType" value="MDAPI" />
+        <option name="connectionName" value="UniversalContainersDevOrg" />
+        <option name="connectionType" value="OAUTH" />
         <option name="defaultSourceRootUrl" value="file://$MODULE_DIR$/force-app/main/default" />
+        <option name="moduleContents">
+          <ModuleContents>
+            <option name="contentSelectionType" value="PACKAGE_XML" />
+            <option name="packageXmlRelativePath" value="manifest/package.xml" />
+          </ModuleContents>
+        </option>
       </configuration>
     </facet>
   </component>
@@ -15,7 +21,7 @@
       <sourceFolder url="file://$MODULE_DIR$/config" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/force-app/main/default" isTestSource="false" />
     </content>
-    <orderEntry type="jdk" jdkName="IlluminatedCloud (Universal_Containers/Filip Admin)" jdkType="IlluminatedCloud" />
+    <orderEntry type="jdk" jdkName="IlluminatedCloud (Universal-Containers-SFDX/UniversalContainersDevOrg)" jdkType="IlluminatedCloud" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
 </module>
